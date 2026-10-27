@@ -1,0 +1,47 @@
+{
+  "skill_name": "loudness-and-mastering",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "What integrated LUFS should I target for Spotify delivery?",
+        "top_k": 3
+      },
+      {
+        "prompt": "My master shows true peak overs after the limiter, is that a problem?",
+        "top_k": 3
+      },
+      {
+        "prompt": "Master this track to -14 LUFS for Spotify and give me a delivery record",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "The pad disappears when I fold the mix to mono",
+        "owner": "mixing-and-gain-staging"
+      },
+      {
+        "prompt": "Set up tracing so we can follow a request across services",
+        "owner": "observability-and-instrumentation"
+      }
+    ]
+  },
+  "evals": [
+    {
+      "id": 1,
+      "kind": "execution",
+      "prompt": "Master the mix in BRIEF.md for its delivery targets and produce the delivery record.",
+      "expected_output": "A distribution master measuring -14.0 LUFS ±0.5 LU integrated at or below -1.0 dBTP, a 24-bit archive master, a measured AAC round trip, and a delivery record citing the numbers",
+      "files": [
+        "loudness-and-mastering/album"
+      ],
+      "expectations": [
+        "Integrated loudness and true peak of the supplied mix are measured before any processing, with the numbers recorded",
+        "The loudness change is reached by gain rather than by limiter drive, and the reasoning for the amount of limiting is stated",
+        "The exported distribution master measures within 0.5 LU of -14.0 LUFS integrated and at or below -1.0 dBTP, measured on the exported file",
+        "Dither is applied on the 16-bit reduction only, and the archive master is 24-bit",
+        "The delivery record lists each deliverable with sample rate, bit depth, integrated loudness, true peak, and the target it was checked against"
+      ]
+    }
+  ]
+}

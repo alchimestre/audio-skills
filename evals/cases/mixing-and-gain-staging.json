@@ -1,0 +1,47 @@
+{
+  "skill_name": "mixing-and-gain-staging",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "My mix sounds muddy and the master bus is clipping, where do I start?",
+        "top_k": 3
+      },
+      {
+        "prompt": "How much headroom should I leave on the mix bus before mastering?",
+        "top_k": 3
+      },
+      {
+        "prompt": "The pad disappears when I fold the mix to mono",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "What integrated LUFS should I target for Spotify delivery?",
+        "owner": "loudness-and-mastering"
+      },
+      {
+        "prompt": "Simplify this over-clever component",
+        "owner": "code-simplification"
+      }
+    ]
+  },
+  "evals": [
+    {
+      "id": 1,
+      "kind": "execution",
+      "prompt": "Mix the session in BRIEF.md against its delivery spec. Deliver the mix, the stems, and the numbers.",
+      "expected_output": "A 48 kHz 24-bit mix peaking at or below -6 dBFS, a mono fold-down that keeps every element, stems summing back to the mix, and a mix sheet recording alignment, ceiling, mono decision, and reference",
+      "files": [
+        "mixing-and-gain-staging/session"
+      ],
+      "expectations": [
+        "A delivery brief is written down before processing, and it matches BRIEF.md's format, ceiling, mono, and stem requirements",
+        "The delivered mix measures at or below -6.0 dBFS sample peak in both channels, verified with a measurement command or meter reading rather than asserted",
+        "The pad's polarity problem is found and corrected, so the mono fold-down does not cancel it; the mono result is measured or auditioned and recorded",
+        "Stems are printed from the delivered mix state and the residual of mix minus stem sum is measured, not assumed",
+        "A mix sheet records nominal alignment, pre-master ceiling, mono decision, and the reference used"
+      ]
+    }
+  ]
+}

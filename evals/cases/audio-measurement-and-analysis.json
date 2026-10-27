@@ -1,0 +1,47 @@
+{
+  "skill_name": "audio-measurement-and-analysis",
+  "trigger": {
+    "positive": [
+      {
+        "prompt": "How do I measure RT60 and find the ringing modes in my room?",
+        "top_k": 3
+      },
+      {
+        "prompt": "Is this plugin actually transparent? Do a null test on it",
+        "top_k": 3
+      },
+      {
+        "prompt": "How do I set the FFT window and averaging so this spectrum measurement is repeatable?",
+        "top_k": 3
+      }
+    ],
+    "negative": [
+      {
+        "prompt": "What integrated LUFS should I target for Spotify delivery?",
+        "owner": "loudness-and-mastering"
+      },
+      {
+        "prompt": "Profile this page and find the main-thread bottleneck",
+        "owner": "performance-optimization"
+      }
+    ]
+  },
+  "evals": [
+    {
+      "id": 1,
+      "kind": "execution",
+      "prompt": "Answer the four questions in BRIEF.md from the supplied measurements, and log what produced each number.",
+      "expected_output": "An RT60 with its fit range, the ringing modes matched against the room's dimensions, a treatment recommendation tied to reported loudness measurement, and a null test verdict with the residual measured",
+      "files": [
+        "audio-measurement-and-analysis/lab"
+      ],
+      "expectations": [
+        "RT60 is computed from a decay fit and the fit range (-5 to -35 dB or stated equivalent) is reported with the value",
+        "The reported low-frequency ringing modes are compared against axial mode frequencies computed from the room dimensions",
+        "The null test residual between chain-in and chain-out is measured and reported in dB, and the verdict follows the recorded threshold",
+        "Measurement settings (window, FFT size or equivalent, averaging) are recorded alongside the results",
+        "The treatment recommendation cites the measured RT60 against the 0.45 s target rather than a generic claim"
+      ]
+    }
+  ]
+}
