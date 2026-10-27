@@ -21,8 +21,7 @@
         "owner": "mixing-and-gain-staging"
       },
       {
-        "prompt": "Set up tracing so we can follow a request across services",
-        "owner": "observability-and-instrumentation"
+        "prompt": "Set up tracing so we can follow a request across services"
       }
     ]
   },

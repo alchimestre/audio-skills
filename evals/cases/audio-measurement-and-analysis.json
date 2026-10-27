@@ -21,8 +21,7 @@
         "owner": "loudness-and-mastering"
       },
       {
-        "prompt": "Profile this page and find the main-thread bottleneck",
-        "owner": "performance-optimization"
+        "prompt": "Profile this page and find the main-thread bottleneck"
       }
     ]
   },

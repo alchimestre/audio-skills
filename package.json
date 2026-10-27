@@ -1,0 +1,10 @@
+{
+  "name": "audio-skills",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Sound-engineering skills for AI coding agents",
+  "scripts": {
+    "test": "node scripts/run-evals.js"
+  },
+  "license": "MIT"
+}

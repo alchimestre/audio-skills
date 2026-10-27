@@ -38,10 +38,22 @@ npx skills add alchimestre/audio-skills
 python3 scripts/make-audio-fixtures.py
 ```
 
-The runner is not in this repo. Those cases are consumed by the three-tier harness in `addyosmani/agent-skills`, which reads `evals/cases` from its own root, so running them needs that checkout with `--root` support or a copy of this directory under its `evals/`.
+The runner is vendored from [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) (MIT, commit `aeac41d`). `scripts/run-evals.js` is unchanged apart from one import path, so upstream diffs stay readable; the frontmatter parser it needs lives in `scripts/lib/frontmatter.js`.
+
+## Tests
+
+```sh
+npm test                                              # tier 2: trigger, routing, schema
+node scripts/run-evals.js --min-rank1 95               # fail under a routing floor
+node scripts/run-evals.js --behavioral mixing-and-gain-staging --dry-run
+python3 scripts/make-audio-fixtures.py                # regenerate the WAVs
+```
+
+Tier 2 is deterministic and spends no tokens: every positive prompt must rank its skill in the top 3, no negative prompt may rank it first, two descriptions may not collide, and every case file must be schema-complete. Tier 3 runs an execution case through headless `claude`, materializes its fixtures in a throwaway workspace, and grades the trace against `expectations[]`; it costs tokens and needs `claude` on `PATH`.
 
 ## Limits
 
 - Fixtures are 48 kHz WAVs, 44 KB to 576 KB. No commercial material is included.
 - The skills assume a measured workflow. Without a target and a pass threshold, the workflow has nothing to verify against.
+- Negative prompts owned by a skill outside this repo carry no `owner` field, so they assert "not ranked first" rather than a pairwise routing check.
 - Skill anatomy follows addyosmani/agent-skills, MIT licensed.
